@@ -15,13 +15,13 @@ function MainProvider({children}) {
       'api_key': process.env.REACT_APP_MOVIE_API_KEY,
     },
   })
-  const apiVideo = axios.create({
-    baseURL: 'https://api.themoviedb.org/3/',
-    params: {
-      'api_key': process.env.REACT_APP_MOVIE_API_KEY,
-    },
-    append_to_response: "videos",
-  })
+  // const apiVideo = axios.create({
+  //   baseURL: 'https://api.themoviedb.org/3/',
+  //   params: {
+  //     'api_key': process.env.REACT_APP_MOVIE_API_KEY,
+  //   },
+  //   append_to_response: "videos",
+  // })
 
   /// API calls
   async function getTrendingMovies() {
@@ -41,7 +41,7 @@ function MainProvider({children}) {
   }
 
   async function getVideoMovie (id) {
-    const {data} = await apiVideo(`movie/${id}`);
+    const {data} = await api(`movie/${id}/videos`);
     console.log("VideoMovie", data);
     return data;
   }

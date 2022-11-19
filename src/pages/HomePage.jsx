@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useMain } from '../hooks/main'
+import { useMain } from '../context/main'
 
 function HomePage() {
 
