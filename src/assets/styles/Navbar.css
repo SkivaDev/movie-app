@@ -1,0 +1,27 @@
+.navbar {
+  width: 100%;
+}
+.navbar-container1 {
+  background: rgba(22,28,36,.25);
+  backdrop-filter: blur(40px);
+}
+.navbar-container2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 8.5px 20px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1300px;
+  border-bottom: none;
+}
+
+.navbar-container2 .texts-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar-container2 .text{
+  margin: 0 15px;
+}

@@ -1,8 +1,10 @@
 import React from 'react'
-
+import "../assets/styles/Footer.css"
 function Footer() {
   return (
-    <div>Footer</div>
+    <div className='Footer'>
+      <p className='Footer-text'>© All rights reserved | Fabrizio Ortiz 2022</p>
+    </div>
   )
 }
 

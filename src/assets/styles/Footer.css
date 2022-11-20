@@ -1,0 +1,9 @@
+.Footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Footer-text {
+  color: rgb(52, 13, 207);
+}
