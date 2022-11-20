@@ -1,0 +1,12 @@
+.moviesContainer {
+  /* background-color: #0F1014; */
+
+  display: grid;
+  gap: 15px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+  display: grid;
+  grid-gap: 5px;
+  gap: 5px;
+  grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
+}

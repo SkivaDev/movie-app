@@ -1,5 +1,6 @@
 import React from 'react'
 import MoviesContainer from '../components/MoviesContainer'
+import "../assets/styles/GenericPage.css"
 
 const configuration = {
   language: "es",
