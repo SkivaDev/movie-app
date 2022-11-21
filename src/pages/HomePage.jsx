@@ -9,6 +9,9 @@ function HomePage() {
     getUpcomingMovies,
 
     getVideoMovie,
+
+    config,
+    setConfig,
   } = useMain();
 
   useEffect(() => {
@@ -16,10 +19,20 @@ function HomePage() {
     getPopularMovies();
     getUpcomingMovies();
     getVideoMovie(760161);
-  }, []);
+  }, [config]);
 
+  const changeLanguage = () => {
+    const newConfig = {
+      ...config,
+      language: "en"
+    };
+    setConfig(newConfig);
+  }
   return (
-    <div>HomePage :3</div>
+    <div>
+      <h1>HomePage :3</h1>
+      <button onClick={changeLanguage}>INGLES</button>
+    </div>
   )
 }
 

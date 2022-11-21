@@ -1,17 +1,29 @@
 import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom';
 import "../assets/styles/Navbar.css";
+import { useMain } from '../context/main';
 import LanguageBtn from './LanguageBtn';
 import Searcher from './Searcher';
 
 function Navbar() {
 
+  const {
+    config,
+    setConfig,
+  } = useMain();
+
   const location = useLocation();
   const classNameActive = (route) => {
     if (location.pathname === route.to) {
+      // const newConfig = {
+      //   ...config,
+      //   title: location.pathname.match(/[a-z]/),
+      // }
+      // setConfig(newConfig);
       return "active-item";
     };
   }
+
 
   return (
     <div className='navbar'>

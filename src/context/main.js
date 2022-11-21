@@ -1,9 +1,20 @@
 import axios from 'axios';
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 
 const MainContext = createContext();
 
 function MainProvider({children}) {
+  const defaultConfig = {
+    language: "es",
+    route: "/trending",
+    title: "Trending Movies",
+    
+  }
+  // 
+  const [config, setConfig] = useState(defaultConfig);
+
+
+
 
   /// fetch data
   const api = axios.create({
@@ -13,6 +24,7 @@ function MainProvider({children}) {
     },
     params: {
       'api_key': process.env.REACT_APP_MOVIE_API_KEY,
+      'language': config.language
     },
   })
   // const apiVideo = axios.create({
@@ -55,6 +67,8 @@ function MainProvider({children}) {
     getUpcomingMovies,
 
     getVideoMovie,
+    config,
+    setConfig,
   };
 
   return (
