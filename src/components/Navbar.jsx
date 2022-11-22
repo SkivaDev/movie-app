@@ -15,13 +15,17 @@ function Navbar() {
   const location = useLocation();
   const classNameActive = (route) => {
     if (location.pathname === route.to) {
-      // const newConfig = {
-      //   ...config,
-      //   title: location.pathname.match(/[a-z]/),
-      // }
-      // setConfig(newConfig);
       return "active-item";
     };
+  }
+  ////
+  const setNewConfig = (route) => {
+    const newConfig = {
+      ...config,
+      route: route.to,
+      title: route.text
+    }
+    setConfig(newConfig);
   }
 
 
@@ -34,6 +38,7 @@ function Navbar() {
           </div>
           
           <div className={`texts-container`}>
+
             {routes.map((route) => {
               return (
                 <li 
@@ -43,28 +48,14 @@ function Navbar() {
                   <NavLink 
                     className={"text"}
                     to={route.to}
-                    onClick={() => console.log(location.pathname)}
+                    onClick={() => setNewConfig(route)}
                   >
                     {route.text}
                   </NavLink>
                 </li>
               )
             })}
-            {/* <div className={`text-box`}>
-              <NavLink className={`text`} to={"/"}>Home</NavLink>
-            </div>
-            <div className={`text-box`}>
-              <NavLink className={`text`} to={"/trending"}>Trending Movies</NavLink>
-            </div>
-            <div className={`text-box`}>
-              <NavLink className={`text`} to={"/categories"}>Categories</NavLink>
-            </div>
-            <div className={`text-box`}>
-              <NavLink className={`text`} to={"/popular"}>Popular</NavLink>
-            </div>
-            <div className={`text-box`}>
-              <NavLink className={`text`} to={"/upcoming"}>Upcoming</NavLink>
-            </div> */}
+
           </div>
           <div className={`multi-container`}>
             <Searcher />

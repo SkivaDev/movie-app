@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 
 const MainContext = createContext();
 
@@ -12,7 +12,7 @@ function MainProvider({children}) {
   }
   // 
   const [config, setConfig] = useState(defaultConfig);
-
+  const [movies, setMovies] = useState([])
 
 
 
@@ -38,17 +38,23 @@ function MainProvider({children}) {
   /// API calls
   async function getTrendingMovies() {
     const { data } = await api('trending/movie/day');
-    console.log("trending", data)
-    return data;
+    console.log("trending", data);
+    const movies = data.results;
+    setMovies(movies);
+    return movies;
   }
   async function getPopularMovies() {
     const { data } = await api('movie/popular');
     console.log("popular", data)
-    return data;
+    const movies = data.results;
+    setMovies(movies);
+    return movies;
   }
   async function getUpcomingMovies() {
     const { data } = await api('movie/upcoming');
     console.log("upcoming", data)
+    const movies = data.results;
+    setMovies(movies);
     return data;
   }
 
@@ -58,7 +64,25 @@ function MainProvider({children}) {
     return data;
   }
 
+  useEffect(() => {
+    if(config.route === "/"){
 
+    }
+    else if(config.route === "/trending"){
+      getTrendingMovies();
+    }
+    else if(config.route === "/categories"){
+      
+    }
+    else if(config.route === "/popular"){
+      getPopularMovies();
+    }
+    else if(config.route === "/upcoming"){
+      getUpcomingMovies();
+    }
+
+  }, [config])
+  
 
   ////////////////////
   const main = {
@@ -69,6 +93,7 @@ function MainProvider({children}) {
     getVideoMovie,
     config,
     setConfig,
+    movies,
   };
 
   return (

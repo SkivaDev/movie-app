@@ -1,8 +1,11 @@
 import React from 'react'
+import "../assets/styles/MovieCard.css"
 
-function MovieCard() {
+function MovieCard({movie}) {
   return (
-    <div>MovieCard</div>
+    <div className={`movieCard`}>
+      <h2>{movie.title}</h2>
+    </div>
   )
 }
 
