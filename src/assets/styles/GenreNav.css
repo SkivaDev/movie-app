@@ -1,0 +1,7 @@
+.GenreNav-container {
+  display: flex;
+}
+
+.GenreNav-button {
+  font-size: 15px;
+}

@@ -8,25 +8,40 @@ import Searcher from './Searcher';
 function Navbar() {
 
   const {
-    config,
-    setConfig,
+    config
   } = useMain();
 
+  
   const location = useLocation();
   const classNameActive = (route) => {
     if (location.pathname === route.to) {
       return "active-item";
     };
   }
-  ////
-  const setNewConfig = (route) => {
-    const newConfig = {
-      ...config,
-      route: route.to,
-      title: route.text
-    }
-    setConfig(newConfig);
-  }
+
+  const languageES = config.languageES;
+
+  const routes = [];
+  routes.push({
+    to: "/",
+    text: languageES ? "Hogar" : "Home",
+  });
+  routes.push({
+    to: "/trending",
+    text: languageES ? "Tendencia" : "Trending Movies",
+  });
+  routes.push({
+    to: "/categories",
+    text: languageES ? "Categorías" :"Categories",
+  });
+  routes.push({
+    to: "/popular",
+    text: languageES ? "Popular" : "Popular",
+  });
+  routes.push({
+    to: "/upcoming",
+    text: languageES ? "Próximamente" : "Upcoming",
+  });
 
 
   return (
@@ -48,7 +63,7 @@ function Navbar() {
                   <NavLink 
                     className={"text"}
                     to={route.to}
-                    onClick={() => setNewConfig(route)}
+                    // onClick={() => setNewConfig(route)}
                   >
                     {route.text}
                   </NavLink>
@@ -67,26 +82,6 @@ function Navbar() {
   )
 }
 
-const routes = [];
-routes.push({
-  to: "/",
-  text: "Home",
-});
-routes.push({
-  to: "/trending",
-  text: "Trending Movies",
-});
-routes.push({
-  to: "/categories",
-  text: "Categories",
-});
-routes.push({
-  to: "/popular",
-  text: "Popular",
-});
-routes.push({
-  to: "/upcoming",
-  text: "Upcoming",
-});
+
 
 export default Navbar;

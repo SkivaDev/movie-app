@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import MoviesContainer from '../components/MoviesContainer'
 import "../assets/styles/GenericPage.css"
 import { useMain } from '../context/main'
+import GenreNav from '../components/GenreNav'
+import { useLocation } from 'react-router-dom'
 
 const configuration = {
   language: "es",
@@ -18,19 +20,19 @@ function GenericPage() {
 
     getVideoMovie,
 
-    config,
     setConfig,
+    genericTitle,
   } = useMain();
 
-  const status = config;
-  
+  const location = useLocation();
+  const isCategories = location.pathname === "/categories";
 
   return (
     <div className={`genericPage`}>
       <div className={`title-container`}>
         <div className={`text-box`}>
-          {console.log("status", status)}
-          <h1 className={`text`}>{status.title}</h1>
+          {/* {console.log("status", status)} */}
+          <h1 className={`text`}>{genericTitle}</h1>
         </div>
         <div className={`btn-box`}>
           <button className={`button`}>
@@ -39,8 +41,8 @@ function GenericPage() {
         </div>
       </div>
 
-      {/* <categoriesComponent> */}
-
+      {isCategories ? <GenreNav /> : null}
+      
       <MoviesContainer />
     </div>
   )

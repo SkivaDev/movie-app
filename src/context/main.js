@@ -1,20 +1,44 @@
 import axios from 'axios';
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 const MainContext = createContext();
 
 function MainProvider({children}) {
-  const defaultConfig = {
-    language: "es",
-    route: "/trending",
-    title: "Trending Movies",
-    
+  ////
+  // const defaultxddd = {
+  //   route: "/home",
+  //   genericTitle: "",
+  //   languageES: false,
+  //   isCategories: false,
+
+  // }
+  const defaultCfg = {
+    languageES: false,
   }
+  // localstorage
+  const {
+    item: config,
+    saveItem: saveConfig,
+  } = useLocalStorage("MOVIEAPP_cfg", defaultCfg)
+
+  // utils
+  const setLanguageES = (bloolean) => {
+    const newConfig = {
+      ...config,
+      languageES: bloolean,
+    }
+    saveConfig(newConfig);
+  }
+
   // 
-  const [config, setConfig] = useState(defaultConfig);
-  const [movies, setMovies] = useState([])
-
-
+  const [movies, setMovies] = useState([]);
+  const [genres, setGenres] = useState([]);
+  const [genericTitle, setGenericTitle] = useState(""); 
+  const [isCategories, setIsCategories] = useState(false);
+  //
+  const location = useLocation();
 
   /// fetch data
   const api = axios.create({
@@ -24,7 +48,7 @@ function MainProvider({children}) {
     },
     params: {
       'api_key': process.env.REACT_APP_MOVIE_API_KEY,
-      'language': config.language
+      'language': config.languageES ? "es" : "en",
     },
   })
   // const apiVideo = axios.create({
@@ -58,42 +82,57 @@ function MainProvider({children}) {
     return data;
   }
 
+  async function getGenresMovies() {
+    const {data} = await api(`genre/movie/list`);
+    console.log("Genres", data);
+    const genres = data.genres;
+    setGenres(genres);
+    return data;
+  }
+
   async function getVideoMovie (id) {
     const {data} = await api(`movie/${id}/videos`);
     console.log("VideoMovie", data);
     return data;
   }
 
-  useEffect(() => {
-    if(config.route === "/"){
 
+  //// USEEFFECT
+  //al iniciar
+  useEffect(() => {
+    getGenresMovies();
+  }, [config])
+  // al navegar
+  useEffect(() => {
+    if(location.pathname === "/"){
     }
-    else if(config.route === "/trending"){
+    else if(location.pathname === "/trending"){
+      setGenericTitle(`${config.languageES ? "Películas en Tendencia" : "Trending Movies"}`);
       getTrendingMovies();
     }
-    else if(config.route === "/categories"){
-      
+    else if(location.pathname === "/categories"){
+      setGenericTitle(`${config.languageES ? "Categorías" : "Categories"}`);
     }
-    else if(config.route === "/popular"){
+    else if(location.pathname === "/popular"){
+      setGenericTitle(`${config.languageES ? "Popular" : "Popular"}`);
       getPopularMovies();
     }
-    else if(config.route === "/upcoming"){
+    else if(location.pathname === "/upcoming"){
+      setGenericTitle(`${config.languageES ? "Próximamente" : "Upcoming"}`);
       getUpcomingMovies();
     }
 
-  }, [config])
+  }, [location, config])
   
-
+  
   ////////////////////
   const main = {
-    getTrendingMovies,
-    getPopularMovies,
-    getUpcomingMovies,
-
-    getVideoMovie,
     config,
-    setConfig,
+
     movies,
+    genres,
+    genericTitle,
+    setLanguageES,
   };
 
   return (
