@@ -32,11 +32,16 @@ function MainProvider({children}) {
     saveConfig(newConfig);
   }
 
+  const slugyfyQuery = (string) => {
+    const result = string.split(" ").join("+")
+    return result;
+  }
+
   // 
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState([]);
   const [genericTitle, setGenericTitle] = useState(""); 
-  const [isCategories, setIsCategories] = useState(false);
+  const [query, setQuery] = useState("");
   //
   const location = useLocation();
 
@@ -81,6 +86,17 @@ function MainProvider({children}) {
     setMovies(movies);
     return data;
   }
+  async function getSearchedMovies(query) {
+    const { data } = await api('search/movie', {
+      params: {
+        query
+      }
+    });
+    console.log("searchedMovie", data)
+    const movies = data.results;
+    setMovies(movies);
+    return data;
+  }
 
   async function getGenresMovies() {
     const {data} = await api(`genre/movie/list`);
@@ -96,6 +112,29 @@ function MainProvider({children}) {
     return data;
   }
 
+  /// function of Pages
+  const homePage = ()  => {
+    
+  }
+  const trendingPage = ()  => {
+    setGenericTitle(`${config.languageES ? "Películas en Tendencia" : "Trending Movies"}`);
+    getTrendingMovies();
+  }
+  const categoriesPage = ()  => {
+    setGenericTitle(`${config.languageES ? "Categorías" : "Categories"}`);
+  }
+  const popularPage = ()  => {
+    setGenericTitle(`${config.languageES ? "Popular" : "Popular"}`);
+    getPopularMovies();
+  }
+  const upcomingPage = ()  => {
+    setGenericTitle(`${config.languageES ? "Próximamente" : "Upcoming"}`);
+    getUpcomingMovies();
+  }
+  const searchPage = ()  => {
+    setGenericTitle(query);
+    getSearchedMovies(query);
+  }
 
   //// USEEFFECT
   //al iniciar
@@ -105,23 +144,24 @@ function MainProvider({children}) {
   // al navegar
   useEffect(() => {
     if(location.pathname === "/"){
+      homePage();
     }
     else if(location.pathname === "/trending"){
-      setGenericTitle(`${config.languageES ? "Películas en Tendencia" : "Trending Movies"}`);
-      getTrendingMovies();
+      trendingPage();
     }
     else if(location.pathname === "/categories"){
-      setGenericTitle(`${config.languageES ? "Categorías" : "Categories"}`);
+      categoriesPage();
     }
     else if(location.pathname === "/popular"){
-      setGenericTitle(`${config.languageES ? "Popular" : "Popular"}`);
-      getPopularMovies();
+      popularPage();
     }
     else if(location.pathname === "/upcoming"){
-      setGenericTitle(`${config.languageES ? "Próximamente" : "Upcoming"}`);
-      getUpcomingMovies();
+      upcomingPage();
     }
-
+    else if(location.pathname === `/search/name=${slugyfyQuery(query)}`){
+      searchPage();
+    }
+    console.log("location", location.pathname);
   }, [location, config])
   
   
@@ -133,6 +173,9 @@ function MainProvider({children}) {
     genres,
     genericTitle,
     setLanguageES,
+    query,
+    setQuery,
+    slugyfyQuery,
   };
 
   return (

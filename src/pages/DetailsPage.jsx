@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom';
 
 function DetailsPage() {
-  const { slug } = useParams();
+  const { movieSlug } = useParams();
 
   // React.useEffect(() => {
   //   fetch(`https://jsonplaceholder.typicode.com/posts/${postSlug}`)
