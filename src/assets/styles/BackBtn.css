@@ -1,0 +1,20 @@
+/* .BackBtn-box {
+  height: 100%;
+} */
+
+.BackBtn-box .button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  width: 113px;
+  background-color: var(--pimary-color);
+  border-radius: 11px;
+  color: #fff;
+}
+.BackBtn-box .button-icon{
+  font-size: 20rem;
+}
+.BackBtn-box .button-text {
+  font-size: 14rem;
+}

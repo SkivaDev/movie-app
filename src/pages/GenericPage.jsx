@@ -4,12 +4,9 @@ import "../assets/styles/GenericPage.css"
 import { useMain } from '../context/main'
 import GenreNav from '../components/GenreNav'
 import { useLocation, useParams } from 'react-router-dom'
+import BackBtn from '../components/BackBtn'
 
-const configuration = {
-  language: "es",
-  kindOfPage: "trending",
-  
-}
+
 
 function GenericPage() {
 
@@ -37,11 +34,7 @@ function GenericPage() {
         <div className={`text-box`}>
           <h1 className={`text`}>{genericTitle}</h1>
         </div>
-        <div className={`btn-box`}>
-          <button className={`button`}>
-            <span>i</span>
-          </button>
-        </div>
+        <BackBtn />
       </div>
 
       {isCategories ? <GenreNav /> : null}
