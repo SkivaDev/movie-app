@@ -6,17 +6,11 @@ import useLocalStorage from '../hooks/useLocalStorage';
 const MainContext = createContext();
 
 function MainProvider({children}) {
-  ////
-  // const defaultxddd = {
-  //   route: "/home",
-  //   genericTitle: "",
-  //   languageES: false,
-  //   isCategories: false,
 
-  // }
   const defaultCfg = {
     languageES: false,
   }
+
   // localstorage
   const {
     item: config,
@@ -31,16 +25,6 @@ function MainProvider({children}) {
     }
     saveConfig(newConfig);
   }
-  
-  // const setLanguageES = (bloolean) => {
-  //   const newConfig = {
-  //     ...config,
-  //     languageES: bloolean,
-  //   }
-  //   saveConfig(newConfig);
-  // }
-
-
 
   const slugyfyQuery = (string) => {
     const result = string.split(" ").join("+")
