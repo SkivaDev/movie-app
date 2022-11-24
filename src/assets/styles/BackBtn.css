@@ -11,6 +11,7 @@
   background-color: var(--pimary-color);
   border-radius: 11px;
   color: #fff;
+  cursor: pointer;
 }
 .BackBtn-box .button-icon{
   font-size: 20rem;

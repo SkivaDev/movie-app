@@ -1,0 +1,74 @@
+.DetailsBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  height: 100vh;
+  padding: 90px 0;
+  max-width: 512px;
+}
+.DetailsBox .DetailsBox-data {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 20rem;
+  margin-bottom: 15px;
+}
+
+.DetailsBox-data .data-stars{
+  display: flex;
+  align-items: center;
+}
+.DetailsBox-data .data-stars > span{
+  color: var(--pimary-color);
+}
+
+.DetailsBox-data .data-category{
+  padding: 4px 6px;
+  background-color: var(--pimary-color);
+  font-size: 13rem;
+  border-radius: 7px;
+}
+
+.DetailsBox .DetailsBox-titles {
+
+}
+
+.DetailsBox-titles .data-title {
+  font-size: 32rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.DetailsBox-titles .data-synopsis {
+  font-size: 20rem;
+  font-weight: 400;
+  line-height: 26px;
+  margin-bottom: 17px;
+}
+
+
+.DetailsBox-buttons {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+}
+.DetailsBox-buttons .PlayTrailer-button{
+  display: flex;
+  padding: 12px 12px;
+  gap: 5px;
+  background-color: var(--pimary-color);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 14rem;
+  cursor: pointer;
+}
+.DetailsBox-buttons .GoDatails-button{
+  display: flex;
+  padding: 12px 12px;
+  gap: 5px;
+  background-color: #333333;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 14rem;
+  cursor: pointer;
+}

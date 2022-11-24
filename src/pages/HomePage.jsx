@@ -1,27 +1,18 @@
 import React, { useEffect } from 'react'
+import HomeHero from '../components/HomeHero';
 import { useMain } from '../context/main'
+import "../assets/styles/HomePage.css"
 
 function HomePage() {
 
   const {
-    getTrendingMovies,
-    getPopularMovies,
-    getUpcomingMovies,
-
-    getVideoMovie,
-
     setLanguageES,
   } = useMain();
 
-  // useEffect(() => {
-  //   getTrendingMovies();
-  //   getPopularMovies();
-  //   getUpcomingMovies();
-  //   getVideoMovie(760161);
-  // }, [config]);
 
   return (
-    <div>
+    <div className='HomePage'>
+      <HomeHero />
       <h1>HomePage :3</h1>
       <button onClick={() => setLanguageES(false)}>INGLES</button>
       <button onClick={() => setLanguageES(true)}>SPANISH</button>

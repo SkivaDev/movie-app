@@ -3,11 +3,12 @@
   top: 0px;
   right: 0px;
   width: 100%;
+  z-index: 20;
 }
 .navbar-container1 {
   background: rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(40px);
-  border-bottom: .8px solid rgba(81, 237, 9, 0.18);
+  border-bottom: .8px solid rgba(255, 255, 255, 0.18);
 }
 .navbar-container2 {
   display: flex;
