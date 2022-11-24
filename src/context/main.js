@@ -31,6 +31,16 @@ function MainProvider({children}) {
     }
     saveConfig(newConfig);
   }
+  
+  // const setLanguageES = (bloolean) => {
+  //   const newConfig = {
+  //     ...config,
+  //     languageES: bloolean,
+  //   }
+  //   saveConfig(newConfig);
+  // }
+
+
 
   const slugyfyQuery = (string) => {
     const result = string.split(" ").join("+")

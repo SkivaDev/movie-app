@@ -73,8 +73,8 @@ function Navbar() {
 
           </div>
           <div className={`multi-container`}>
-            <Searcher />
             <LanguageBtn />
+            <Searcher />
           </div>
         </div>
       </div>
