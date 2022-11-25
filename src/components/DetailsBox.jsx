@@ -12,13 +12,16 @@ function DetailsBox() {
     var minute = Math.floor(((mins/60)-hour)*60);
     console.log("minute", minute)
     minute = (minute < 10)? '0' + minute : minute;
-    return hour + 'h' + minute + "m";
+    return hour + 'h' +" " + minute + "m";
   }
 
+  console.log("PELICULA SELECCIONADA", selectedMovie);
   return (
     <div className="DetailsBox">
       <div className="DetailsBox-data">
-        <div className="data-stars"><span>★</span>{selectedMovie.vote_average}</div>
+        <div className="data-stars">
+          {/* <span>★</span>{selectedMovie.vote_average.toFixed(1)}</div> */}
+          <span>★</span>{selectedMovie.vote_average}</div>
         •
         <p className="data-num">{minString(selectedMovie.runtime)}</p>
         •

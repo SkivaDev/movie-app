@@ -7,7 +7,7 @@ function HomeHero() {
 
   const {selectedMovie} = useMain();
 
-  const IMAGE_PATH = "https://image.tmdb.org/t/p/w1280"
+  const IMAGE_PATH = "https://image.tmdb.org/t/p/original"
 
 
   console.log("movieRandom", selectedMovie);

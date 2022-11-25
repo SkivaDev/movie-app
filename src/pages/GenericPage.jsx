@@ -11,13 +11,6 @@ import BackBtn from '../components/BackBtn'
 function GenericPage() {
 
   const {
-    getTrendingMovies,
-    getPopularMovies,
-    getUpcomingMovies,
-
-    getVideoMovie,
-
-    setConfig,
     genericTitle,
   } = useMain();
 

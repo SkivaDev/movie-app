@@ -9,10 +9,17 @@
 }
 .GenericPreview-header .header-title{
   font-size: 32rem;
-  line-height: 14rem;
+  /* line-height: 14rem; */
 }
 .GenericPreview-header .header-link{
+  display: flex;
+  align-items: center;
+  background-color: var(--primary-color);  
   align-self: flex-end;
+  font-size: 15rem;
+  color: #fff;
+  padding: 10px 13px;
+  border-radius: 7px;
 }
 
 .GenericPreview-box {

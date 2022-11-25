@@ -32,7 +32,10 @@ function MainProvider({children}) {
     const result = string.split(" ").join("+")
     return result;
   }
-
+  const slugifyMovie = (string) => {
+    const titleSlug = string.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+    return titleSlug;
+  };
 
 
 
@@ -40,11 +43,7 @@ function MainProvider({children}) {
     return Math.floor((Math.random() * (max - min + 1)) + min);
   }
 
-  function getRandomImgPath(movies) {
-    const indexRandom = getIndexRandom(0, movies.lenght - 1);
-    const path = movies[indexRandom].backdrop_path;
-    return path;
-  }
+
   const selectMovie = async (movie) => {
     // setPlayTrailer(false);
     const data = await fetchMovie(movie.id);
@@ -63,6 +62,7 @@ function MainProvider({children}) {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [popularMovies, setPopularMovies] = useState([]);
   const [upcomingMovies, setUpcomingMovies] = useState([]);
+  const [similarMovies, setSimilarMovies] = useState([]);
 
   const [heroImgPath, setHeroImgPath] = useState("");
   const [heroMovie, setHeroMovie] = useState({});
@@ -116,6 +116,8 @@ function MainProvider({children}) {
     console.log("AQUII", movies[2]["backdrop_path"])
     await setHeroImgPath(movies[2]["backdrop_path"]);
     await setHeroMovie(movies[2])
+
+    await selectMovie(results[getIndexRandom(0, 19)]);
     return movies;
   }
   async function getPopularMovies() {
@@ -130,7 +132,6 @@ function MainProvider({children}) {
     setMovies(movies);
     setPopularMovies(movies);
     
-    await selectMovie(results[getIndexRandom(0, 19)]);
     return movies;
   }
   async function getUpcomingMovies() {
@@ -141,6 +142,14 @@ function MainProvider({children}) {
     const movies = results;
     setMovies(movies);
     setUpcomingMovies(movies);
+    return movies;
+  }
+  async function getSimilarMovies(movie_id) {
+    const {
+      data: { results },
+    } = await api(`movie/${movie_id}/similar`);
+    console.log("similar", results)
+    setSimilarMovies(movies);
     return movies;
   }
   async function getSearchedMovies(query) {
@@ -165,6 +174,7 @@ function MainProvider({children}) {
     setGenres(genres);
     return genres;
   }
+
 
   async function getVideoMovie (id) {
     const {data} = await api(`movie/${id}/videos`);
@@ -197,6 +207,12 @@ function MainProvider({children}) {
     setGenericTitle(query);
     getSearchedMovies(query);
   }
+  const detailsPage = () => {
+    // getSimilarMovies(selectedMovie.id);
+    console.log("detailsPage-selectMovie", selectedMovie);
+    console.log("????????")
+    getSimilarMovies(830784);
+  }
 
   //// USEEFFECT
   //al iniciar
@@ -227,6 +243,12 @@ function MainProvider({children}) {
     else if(location.pathname === `/search/name=${slugyfyQuery(query)}`){
       searchPage();
     }
+    else if(location.pathname === `/movie/573164-un-rescate-de-huevitos`){
+      console.log("MIRAME");
+      // detailsPage();
+    }
+    // console.log("MIRAME2", `/movie/${slugifyMovie(selectedMovie)}`)
+    // console.log("MIRAME2", slugifyMovie(selectedMovie.title, selectedMovie.id))
     console.log("location", location.pathname);
   }, [location, config])
   
@@ -238,6 +260,7 @@ function MainProvider({children}) {
     trendingMovies,
     popularMovies,
     upcomingMovies,
+    similarMovies,
 
     movies,
     genres,
@@ -248,6 +271,9 @@ function MainProvider({children}) {
     slugyfyQuery,
     heroImgPath,
     selectedMovie,
+    selectMovie,
+
+    getSimilarMovies,
   };
 
   return (

@@ -1,17 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
+import GenericPreview from '../components/GenericPreview';
+import { useMain } from '../context/main';
+import DetailsHero from '../components/DetailsHero';
 
 function DetailsPage() {
   const { movieSlug } = useParams();
 
-  // React.useEffect(() => {
-  //   fetch(`https://jsonplaceholder.typicode.com/posts/${postSlug}`)
-  //     .then((res) => res.json())
-  //     .then((data) => setPost(data));
-  // }, [slug]);
+  const {
+    getSimilarMovies,
+    similarMovies,
+  } = useMain();
+
+  useEffect(() => {
+    const [id, ...etc] = movieSlug.split('=');
+    getSimilarMovies(id);
+  }, [movieSlug])
 
   return (
-    <div>DetailsPage</div>
+    <div className='DetailsPage'>
+      <DetailsHero/>
+      <GenericPreview 
+      title={"Similar movies"} 
+      redirec={"/upcoming"}
+      movies={similarMovies}
+      />
+    </div>
   )
 }
 

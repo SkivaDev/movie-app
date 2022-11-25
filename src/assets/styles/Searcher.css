@@ -44,5 +44,5 @@
   font-size: 22px;
 }
 .search-container .search-btn .logo:hover {
-  color: var(--secondary-color);
+  color: var(--primary-color);
 }

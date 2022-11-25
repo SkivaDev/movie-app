@@ -27,7 +27,7 @@ function App() {
               <Route path=':slug' element={<GenericPage /> } />
             </Route> */}
             <Route path='/search/name=:searchMovie' element={<GenericPage /> } />
-            <Route path='/movie' element={<DetailsPage />} />
+            <Route path='/movie/:movieSlug' element={<DetailsPage />} />
             <Route path="*" element={<p>Not found 404</p>} />
           </Routes>
 
