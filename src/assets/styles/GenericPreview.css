@@ -1,0 +1,45 @@
+.GenericPreview {
+  margin-bottom: 40px;
+}
+
+.GenericPreview-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px
+}
+.GenericPreview-header .header-title{
+  font-size: 32rem;
+  line-height: 14rem;
+}
+.GenericPreview-header .header-link{
+  align-self: flex-end;
+}
+
+.GenericPreview-box {
+  background: transparent;
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+.GenericPreview-box .cards-container{
+  color: #fff;
+  display: flex;
+  gap: 17px;
+  overflow-x: auto;
+  position: relative;
+  padding-bottom: 25px;
+}
+
+.GenericPreview-box .cards-container::-webkit-scrollbar {
+  height: 10px;
+}
+
+.GenericPreview-box .cards-container::-webkit-scrollbar-track {
+  background: #262626;
+}
+
+.GenericPreview-box .cards-container::-webkit-scrollbar-thumb {
+  background-color: #e13c2f;
+  border-radius: 3px;
+  border: 20px solid #ff0000;
+}

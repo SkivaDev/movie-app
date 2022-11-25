@@ -1,24 +1,35 @@
 import React from "react";
 import "../assets/styles/DetailsBox.css"
+import { useMain } from "../context/main";
 
 function DetailsBox() {
+  const {selectedMovie} = useMain();
+
+  function minString(mins) {
+    var hour = Math.floor(mins / 60);
+    console.log("hour", hour)
+    hour = (hour < 10)? '' + hour : hour;
+    var minute = Math.floor(((mins/60)-hour)*60);
+    console.log("minute", minute)
+    minute = (minute < 10)? '0' + minute : minute;
+    return hour + 'h' + minute + "m";
+  }
+
   return (
     <div className="DetailsBox">
       <div className="DetailsBox-data">
-        <div className="data-stars"><span>★</span> 7.5</div>
+        <div className="data-stars"><span>★</span>{selectedMovie.vote_average}</div>
         •
-        <p className="data-num">1h 55m</p>
+        <p className="data-num">{minString(selectedMovie.runtime)}</p>
         •
         <div className="data-category">TRENDING</div>
       </div>
       <div className="DetailsBox-titles">
         <h2 className="data-title">
-          Doctor Strange in the Multiverse of Madness
+          {selectedMovie.title}
         </h2>
         <p className="data-synopsis">
-          Doctor Strange, with the help of mystical allies both old and new,
-          traverses the mind-bending and dangerous alternate realities of the
-          Multiverse to confront a mysterious new adversary.
+          {selectedMovie.overview}
         </p>
         {/**RELEASED: DETAILS*/}
       </div>

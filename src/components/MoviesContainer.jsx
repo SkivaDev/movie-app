@@ -5,45 +5,9 @@ import "../assets/styles/MoviesContainer.css"
 
 function MoviesContainer() {
   const {
-    getTrendingMovies,
-    getPopularMovies,
-    getUpcomingMovies,
-
-    getVideoMovie,
-
-    config,
-    setConfig,
     movies,
   } = useMain();
 
-
-//  useEffect(() => {
-//     // if (/*condicional para saber la ruta*/ ) {
-//     //   setMovies(getPopularMovies());
-//     // };
-
-//     setMovies(getPopularMovies());
-//   }, [config])
-  
-
-  // const renderMovies = () => (
-  //   movies.map((movie) => 
-  //   <MovieCard 
-  //     key={movie.id} 
-  //     movie={movie}
-  //     selectMovie={selectMovie}
-  //   />)
-  // );
-
-  // const renderMovies = () => (
-  //   movies.map((movie) => 
-  //   <h2 
-  //     key={movie.id} 
-  //     // selectMovie={selectMovie}
-  //   >
-  //     {movie.title}
-  //   </h2>)
-  // );
 
   const renderMovies = () => (
     movies.map((movie) => 
@@ -53,12 +17,7 @@ function MoviesContainer() {
     />)
   );
 
-//  const renderMovies = () => (
-//   const movies = getPopularMovies();
-//   movies.map((movie) => {
-//     <h2>{movie.title}</h2>
-//   })
-//  )
+
   
 
   return (

@@ -1,7 +1,14 @@
+.movieCard {
+  /* min-height: 340px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 160px;
+}
+
 .movieCard .movie-cover {
   width: 100%;
   cursor: pointer;
-  margin-bottom: 6px;
 }
 .movieCard .movie-text {
   color: #fff;

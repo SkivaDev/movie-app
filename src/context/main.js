@@ -7,6 +7,8 @@ const MainContext = createContext();
 
 function MainProvider({children}) {
 
+  const API_URL = "https://api.themoviedb.org/3";
+
   const defaultCfg = {
     languageES: false,
   }
@@ -31,11 +33,42 @@ function MainProvider({children}) {
     return result;
   }
 
+
+
+
+  function getIndexRandom(min, max) {
+    return Math.floor((Math.random() * (max - min + 1)) + min);
+  }
+
+  function getRandomImgPath(movies) {
+    const indexRandom = getIndexRandom(0, movies.lenght - 1);
+    const path = movies[indexRandom].backdrop_path;
+    return path;
+  }
+  const selectMovie = async (movie) => {
+    // setPlayTrailer(false);
+    const data = await fetchMovie(movie.id);
+    setSelectedMovie(data);
+  }
+
+
+
+
   // 
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState([]);
   const [genericTitle, setGenericTitle] = useState(""); 
   const [query, setQuery] = useState("");
+
+  const [trendingMovies, setTrendingMovies] = useState([]);
+  const [popularMovies, setPopularMovies] = useState([]);
+  const [upcomingMovies, setUpcomingMovies] = useState([]);
+
+  const [heroImgPath, setHeroImgPath] = useState("");
+  const [heroMovie, setHeroMovie] = useState({});
+
+  const [selectedMovie, setSelectedMovie] = useState({});
+
   //
   const location = useLocation();
 
@@ -50,6 +83,17 @@ function MainProvider({children}) {
       'language': config.languageES ? "es" : "en",
     },
   })
+
+  const fetchMovie = async (id) => {
+    const {data} = await axios.get(`${API_URL}/movie/${id}`, {
+      params: {
+        api_key: process.env.REACT_APP_MOVIE_API_KEY,
+        language: config.languageES ? "es" : "en",
+        append_to_response: "videos",
+      },
+    });
+    return data;
+  }
   // const apiVideo = axios.create({
   //   baseURL: 'https://api.themoviedb.org/3/',
   //   params: {
@@ -58,46 +102,68 @@ function MainProvider({children}) {
   //   append_to_response: "videos",
   // })
 
-  /// API calls
+  /// API calls 
   async function getTrendingMovies() {
-    const { data } = await api('trending/movie/day');
-    console.log("trending", data);
-    const movies = data.results;
+    const {
+      data: { results },
+    } = await api('trending/movie/day');
+    console.log("trending", results);
+    const movies = results;
     setMovies(movies);
+    setTrendingMovies(movies);
+
+    // const newImgPath = await getRandomImgPath(movies);
+    console.log("AQUII", movies[2]["backdrop_path"])
+    await setHeroImgPath(movies[2]["backdrop_path"]);
+    await setHeroMovie(movies[2])
     return movies;
   }
   async function getPopularMovies() {
-    const { data } = await api('movie/popular');
-    console.log("popular", data)
-    const movies = data.results;
+    const {
+      data: { results },
+    } = await api('movie/popular');
+
+    console.log("popular", results)
+    
+    const movies = results;
+    
     setMovies(movies);
+    setPopularMovies(movies);
+    
+    await selectMovie(results[getIndexRandom(0, 19)]);
     return movies;
   }
   async function getUpcomingMovies() {
-    const { data } = await api('movie/upcoming');
-    console.log("upcoming", data)
-    const movies = data.results;
+    const {
+      data: { results },
+    } = await api('movie/upcoming');
+    console.log("upcoming", results)
+    const movies = results;
     setMovies(movies);
-    return data;
+    setUpcomingMovies(movies);
+    return movies;
   }
   async function getSearchedMovies(query) {
-    const { data } = await api('search/movie', {
+    const {
+      data: { results },
+    } = await api('search/movie', {
       params: {
         query
       }
     });
-    console.log("searchedMovie", data)
-    const movies = data.results;
+    console.log("searchedMovie", results)
+    const movies = results;
     setMovies(movies);
-    return data;
+    return movies;
   }
 
   async function getGenresMovies() {
-    const {data} = await api(`genre/movie/list`);
-    console.log("Genres", data);
-    const genres = data.genres;
+    const {
+      data: { genres },
+    } = await api(`genre/movie/list`);
+    console.log("Genres", genres);
     setGenres(genres);
-    return data;
+    return genres;
   }
 
   async function getVideoMovie (id) {
@@ -108,7 +174,9 @@ function MainProvider({children}) {
 
   /// function of Pages
   const homePage = ()  => {
-    
+    getTrendingMovies();
+    getPopularMovies();
+    getUpcomingMovies();
   }
   const trendingPage = ()  => {
     setGenericTitle(`${config.languageES ? "Películas en Tendencia" : "Trending Movies"}`);
@@ -132,6 +200,10 @@ function MainProvider({children}) {
 
   //// USEEFFECT
   //al iniciar
+  // useEffect(() => {
+  //   homePage();
+  // }, [])
+
   useEffect(() => {
     getGenresMovies();
   }, [config])
@@ -163,6 +235,10 @@ function MainProvider({children}) {
   const main = {
     config,
 
+    trendingMovies,
+    popularMovies,
+    upcomingMovies,
+
     movies,
     genres,
     genericTitle,
@@ -170,6 +246,8 @@ function MainProvider({children}) {
     query,
     setQuery,
     slugyfyQuery,
+    heroImgPath,
+    selectedMovie,
   };
 
   return (
